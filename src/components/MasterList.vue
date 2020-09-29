@@ -38,7 +38,6 @@ import ErrorMsg from './ErrorMsg'
 export default {
   data () {
     return {
-      loading: false,
       editID: -1,
       isError: {has: false, msg: '', color: ''},
       dataViewType: MasterStore[this.$route.params.dataContent],
@@ -66,10 +65,7 @@ export default {
   },
   methods: {
     fetchItem: function () {
-      this.loading = true
-      this.dataViewType.fetchData(this.TSelected, this.filter).then(() => {
-        this.loading = false
-      })
+      this.dataViewType.fetchData(this.TSelected, this.filter)
     },
     initAdd: function () {
       const item = this.dataViewType.data.types[this.TSelected]

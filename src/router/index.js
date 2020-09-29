@@ -1,26 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/Login'
-import Home from '@/components/Home'
-import Dashboard from '@/components/Dashboard'
-import MasterList from '@/components/MasterList'
-import SuperCompany from '@/components/SuperCompany'
-import AllQuotations from '@/components/AllQuotations'
-import BGA from '@/components/BGA'
-import NewQuotation from '@/components/BGA/NewQuotation'
-import NewServices from '@/components/AGA/NewServices'
-import NewSuppliers from '@/components/AGA/NewSuppliers'
-import AGA from '@/components/AGA'
 import Access from '@/store/NavBar'
 
 Vue.use(Router)
+
+function loadComponent (component) {
+  return () => import(`@/components/${component}`)
+}
 
 export default new Router({
   routes: [
     {
       path: '/login',
       name: 'Login',
-      component: Login,
+      component: loadComponent('Login'),
       beforeEnter: (to, from, next) => {
         localStorage.removeItem('liu')
         next()
@@ -43,12 +36,12 @@ export default new Router({
           next({name: 'Login'})
         })
       },
-      component: Home,
+      component: loadComponent('Home'),
       children: [
         {
           path: '',
           name: 'Dashboard',
-          component: Dashboard
+          component: loadComponent('Dashboard')
         },
         {
           path: 'master-data/:dataContent',
@@ -57,7 +50,7 @@ export default new Router({
             else next({path: from.path})
           },
           name: 'MasterData',
-          component: MasterList,
+          component: loadComponent('MasterList'),
           props: true
         },
         {
@@ -67,7 +60,7 @@ export default new Router({
             else next({path: from.path})
           },
           name: 'SuperCompany',
-          component: SuperCompany,
+          component: loadComponent('SuperCompany'),
           props: true
         },
         {
@@ -77,7 +70,7 @@ export default new Router({
             else next({path: from.path})
           },
           name: 'Quotations',
-          component: AllQuotations,
+          component: loadComponent('AllQuotations'),
           props: true
         },
         {
@@ -87,7 +80,7 @@ export default new Router({
             else next({path: from.path})
           },
           name: 'AGA',
-          component: AGA,
+          component: loadComponent('AGA'),
           props: true
         },
         {
@@ -97,7 +90,7 @@ export default new Router({
             else next({path: from.path})
           },
           name: 'AddServices',
-          component: NewServices
+          component: loadComponent('AGA/NewServices')
         },
         {
           path: 'AGA/placeholder_services/add',
@@ -106,7 +99,7 @@ export default new Router({
             else next({path: from.path})
           },
           name: 'AddPlaceholderServices',
-          component: NewServices
+          component: loadComponent('AGA/NewServices')
         },
         {
           path: 'AGA/suppliers/add',
@@ -115,7 +108,7 @@ export default new Router({
             else next({path: from.path})
           },
           name: 'AddSupplier',
-          component: NewSuppliers
+          component: loadComponent('AGA/NewSuppliers')
         },
         {
           path: 'BGA/:dataContent',
@@ -124,7 +117,7 @@ export default new Router({
             else next({path: from.path})
           },
           name: 'BGA',
-          component: BGA,
+          component: loadComponent('BGA'),
           props: true
         },
         {
@@ -134,7 +127,7 @@ export default new Router({
             else next({path: from.path})
           },
           name: 'BGANew',
-          component: NewQuotation,
+          component: loadComponent('BGA/NewQuotation'),
           props: true
         }
       ]

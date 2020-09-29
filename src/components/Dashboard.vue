@@ -8,7 +8,8 @@
           <span>ME</span>
         </div>
       </div>
-      <img class="poster-img" src="../assets/4012176.jpg" alt="" />
+      <div></div>
+      <!-- <img class="poster-img" src="../assets/4012176.jpg" alt="" /> -->
     </section>
     <section :class="{'fade-in': whichSection === 0}">
       <article class="overall-data">
@@ -136,7 +137,7 @@ section{
 }
 .fade-in{
   opacity: 0;
-  transform: translateY(-30%);
+  transform: translateY(30%);
   transition: all 1s;
 }
 .poster-img{
@@ -146,7 +147,6 @@ section{
   visibility: hidden;
 }
 .poster-data{
-  flex: 1;
   color: white;
   filter: drop-shadow(2px 4px 6px #00000070);
 }

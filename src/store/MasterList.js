@@ -678,7 +678,7 @@ export const LocationData = {
   }
 }
 
-async function fetchMasterData (route, filter) {
+async function fetchMasterData (route, filter = '') {
   const res = await fetch(`${RAILS}/api/master_data/${route}?${filter}`, {
     method: 'get',
     headers: {

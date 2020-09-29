@@ -62,7 +62,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="nodata" v-if="loading">
+      <tr class="nodata" v-if="!viewType.rows.length && !noResponse">
         <td colspan="100%">
           <div class="spinner">
             <div class="rect1"></div>
@@ -90,9 +90,9 @@
           </td>
         </tr>
       </template>
-      <template v-if="!viewType.rows.length">
+      <template v-if="noResponse">
         <tr class="nodata">
-          <td colspan="100%">No Data</td>
+          <td colspan="100%">No Data / No response</td>
         </tr>
       </template>
     </tbody>
@@ -103,13 +103,19 @@
 import InputContainer from './InputContainer'
 
 export default {
-  props: ['viewType', 'loading'],
+  props: ['viewType'],
   data () {
     return {
       searchQuery: '',
       page: 0,
-      resultsPerPage: 15
+      resultsPerPage: 15,
+      noResponse: false
     }
+  },
+  mounted () {
+    setTimeout(() => {
+      this.noResponse = this.viewType.rows.length === 0
+    }, 10000)
   },
   methods: {
     filterRow: function (row) {

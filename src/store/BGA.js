@@ -129,7 +129,13 @@ export const Quotations = {
 }
 
 async function fetchBGAData (route) {
-  const res = await fetch(`/go/api/BGA/${route}`)
+  const res = await fetch(`/go/api/BGA/${route}`, {
+    method: 'get',
+    headers: {
+      'Content-Type': 'application/json',
+      'token': localStorage.getItem('liu')
+    }
+  })
   const data = await res.json()
   if (data.code === 200) {
     return data.data
